@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comida</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="stilo.css">
+        <style>
+        #form2{
+            width: 300px;
+            margin-top: 200px;
+            background-color: rgb(109, 109, 245,0.2) ;
+        }
+        .container-fluid{
+            background-image: url(imgs/prato2.jpg);
+            background-repeat: no-repeat;
+            background-size: 70%;
+            background-position: 50%;
+            height: 1000px;
+        }
+        #cor{
+            background-color:antiquewhite;
+        }
+        #coxi{
+            display: none;
+        }
+        #past{
+            display: none;
+        }
+        
+        </style>
+    </head>
+<body >
+    
+    <div class="container-fluid">
+        <div class="row">
+
+            <nav id="menu" class="navbar navbar-expand-md">
+                <div class="container navbar-header">
+                    <a href="#" class="navbar-brand">
+                        LOGO
+                    </a>
+                </div>
+                <div class="container collapse navbar-collapse">
+                    <ul class="nav ms-auto navbar-nav" >
+                        <li><a href="pesquisa_1.html">Dados</a></li>
+                        <li><a href="pagina_2.html" style="color: burlywood;">Comidas</a></li>                    
+                        <li><a href="pagina_3.html">Bebidas</a></li>
+                        <li><a href="pagina_4.html">Pedidos</a></li>                
+                    </ul>
+                </div>    
+            </nav>
+
+            <!--Formulario-->
+            <div class="text-center container form-check" id="form2">
+                <h1>Selecione a comida</h1>
+                <div class="form-check" id="cor"> 
+                    <input class="form-check-input" onclick="abrir()" type="radio" name="opçoes" id="Coxinha" value="Coxinha">
+                    <label class="form-check-label" for="Coxinha">Coxinha</label>
+                </div>
+                <div class="form-check" id="cor">
+                    <input class="form-check-input" type="radio"  onclick="abrir2()" name="opçoes" id="Pastel" value="Pastel">
+                    <label class="form-check-label" for="Pastel">Pastel</label>
+                </div><br>
+
+                <div class="form-check" id="coxi">
+                    <h5>Que recheio?</h5>
+                    <input class="form-check-input" type="radio" name="rech" id="opç1" value="frango">
+                    <label class="form-check-label" for="opç1">Frango</label><br>
+                    <input class="form-check-input" type="radio" name="rech" id="opç2" value="catupiri">
+                    <label class="form-check-label" for="opç2">Catupiri</label>
+                </div>
+
+                <div class="form-check" id="past">
+                    <h5>Que recheio?</h5>
+                    <input class="form-check-input" type="radio" name="rech" id="opç3" value="queijo">
+                    <label class="form-check-label" for="opç3">Queijo</label><br>
+                    <input class="form-check-input" type="radio" name="rech" id="opç4" value="Catupiri">
+                    <label class="form-check-label" for="opç4">Catupiri</label>
+                </div>
+                <br><br>
+                <a href="pesquisa_1.html"><button class="btn btn-primary">voltar</button></a>
+                <a href="pagina_3.html"><button class="btn btn-primary" onclick="proximo()" >Proximo</button></a>
+                <br>
+                <div id="resp">
+                    <pre id="resultado"></pre>
+                </div>
+            </div>
+        </div>   
+    </div>
+
+    <script>
+        
+        let x = document.getElementById("resultado");
+        let Comida = document.getElementsByName("opçoes");       
+        let Recheio = document.getElementsByName("rech");
+        
+
+        function proximo(){
+
+            for (let i = 0; i < Comida.length; i++) {
+                if (Comida[i].checked) {
+                    Comida = Comida[i].value;
+                    localStorage.setItem('comida',JSON.stringify(Comida));
+                }
+                
+            }   
+            for (let i = 0; i < Recheio.length; i++) {
+                if (Recheio[i].checked) {
+                    Recheio = Recheio[i].value;
+                    localStorage.setItem('recheio',JSON.stringify(Recheio)); 
+                }
+            }   
+    
+        }
+
+        function marcarComida(){
+            var opçao = localStorage.getItem('comida');
+            var opçao2 = localStorage.getItem('recheio') ;
+            var pastel = JSON.stringify(document.getElementById("Pastel").value);
+            var coxinha = JSON.stringify(document.getElementById("Coxinha").value)     
+            for (let i = 0; i < Comida.length; i++) {    
+                if (JSON.stringify(Comida[i].value) == opçao) {                                        
+                    Comida[i].checked = true;                     
+                    break                                             
+                }                                   
+            }
+            if(opçao == coxinha){
+                abrir();                   
+            }else if(opçao == pastel){
+                abrir2()                                   
+            }
+
+            for (let i = 0; i < Recheio.length; i++) {    
+                if (JSON.stringify(Recheio[i].value) == opçao2) {                                        
+                    Recheio[i].checked = true;                     
+                    break                                             
+                }                                   
+            }  
+        } 
+        
+        marcarComida()                                                    
+        x.innerHTML = localStorage.comida +"\n" + localStorage.recheio;
+        
+        
+    
+        
+        function abrir(){
+            document.getElementById("coxi").style = 'display:block;';
+            document.getElementById("past").style = 'display:none;';
+        }
+        function abrir2(){
+            document.getElementById("coxi").style = 'display:none;';
+            document.getElementById("past").style = 'display:block;';
+        }
+    </script>
+</body>
+</html>

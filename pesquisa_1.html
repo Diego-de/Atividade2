@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="stilo.css">
+</head>
+<style>
+.container-fluid{
+    background-image: url(imgs/prato2.jpg);
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: 50%;
+    height: 1000px;
+}
+#form{
+    width: 500px;
+    margin-top: 120px;
+    background-color: rgb(109, 109, 245,0.8) ;
+}
+</style>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="menu" class="navbar navbar-expand-md">
+                <div class="container navbar-header">
+                    <a href="#" class="navbar-brand">
+                        LOGO
+                    </a>
+                </div>
+                <div class="container collapse navbar-collapse">
+                    <ul class="nav ms-auto navbar-nav" >
+                        <li><a href="pesquisa_1.html" style="color: burlywood;">Dados</a></li>
+                        <li><a href="pagina_2.html">Comidas</a></li>                    
+                        <li><a href="pagina_3.html">Bebidas</a></li>
+                        <li><a href="pagina_4.html">Pedidos</a></li>                
+                    </ul>
+                </div>    
+            </nav>
+            <div class="text-center container" id="form">
+                <label for="nome"><h1>Digite seu nome</h1></label>
+                <input class="form-control" type="text" name="name" id="nome" placeholder="Digite seu nome">
+                <br><br>
+                <label for="caixa"><h1>Escreva algo</h1></label>   
+                <textarea class="form-control" name="name" id="caixa" rows="4" cols="50" placeholder="Feedback"></textarea>
+                <br><br>    
+                <a href="pagina_2.html"><button class="btn btn-primary" onclick="proximo()">Proximo</button></a>
+                <br><br>
+                <h1>Saida</h1>
+                <br>
+                <div id="resp">
+                    <pre id="resultado"></pre>
+                </div>
+            </div>   
+
+        </div>   
+    </div>
+
+
+    <script>
+        var x = document.getElementById("resultado");   
+        function proximo(){
+            let nome = document.getElementById("nome").value;
+            let caixa = document.getElementById("caixa").value;
+            localStorage.setItem('name',JSON.stringify(nome)); 
+            localStorage.setItem('caixa',JSON.stringify(caixa));
+        
+        }
+        document.getElementById("nome").value = localStorage.name;
+        document.getElementById("caixa").value = localStorage.caixa;
+        x.innerHTML = localStorage.getItem('name') + localStorage.getItem('caixa');             
+    </script>
+</body>
+</html>
